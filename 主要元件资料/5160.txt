@@ -1,0 +1,77 @@
+[tmc5160 stepper_x]
+cs_pin:
+#   The pin corresponding to the TMC5160 chip select line. This pin
+#   will be set to low at the start of SPI messages and raised to high
+#   after the message completes. This parameter must be provided.
+#spi_speed:
+#spi_bus:
+#spi_software_sclk_pin:
+#spi_software_mosi_pin:
+#spi_software_miso_pin:
+#   See the "common SPI settings" section for a description of the
+#   above parameters.
+#chain_position:
+#chain_length:
+#   These parameters configure an SPI daisy chain. The two parameters
+#   define the stepper position in the chain and the total chain length.
+#   Position 1 corresponds to the stepper that connects to the MOSI signal.
+#   The default is to not use an SPI daisy chain.
+#interpolate: True
+#   If true, enable step interpolation (the driver will internally
+#   step at a rate of 256 micro-steps). The default is True.
+run_current:
+#   The amount of current (in amps RMS) to configure the driver to use
+#   during stepper movement. This parameter must be provided.
+#hold_current:
+#   The amount of current (in amps RMS) to configure the driver to use
+#   when the stepper is not moving. Setting a hold_current is not
+#   recommended (see TMC_Drivers.md for details). The default is to
+#   not reduce the current.
+#sense_resistor: 0.075
+#   The resistance (in ohms) of the motor sense resistor. The default
+#   is 0.075 ohms.
+#stealthchop_threshold: 0
+#   The velocity (in mm/s) to set the "stealthChop" threshold to. When
+#   set, "stealthChop" mode will be enabled if the stepper motor
+#   velocity is below this value. The default is 0, which disables
+#   "stealthChop" mode.
+#driver_IHOLDDELAY: 6
+#driver_TPOWERDOWN: 10
+#driver_TBL: 2  #比较器消隐时间。该时间应大于功率管开关事件和采样电阻上振铃的持续时间。典型应用一般设置 1或 2。对于较高的电容性负载，可能需要 3。较低的设置允许 StealthChop 调节到较低的线圈电流值。 0 16 tCLK， 1 24 tCLK， 2 36 tCLK， 3 54 CLK
+#driver_TOFF: 3 #电机驱动器使能，实际值不影响 StealthChop 性能  0 驱动器输出禁止1 … 15 驱动器输出使能
+#driver_HEND: 2 #磁滞结束参数。此值是经过多次递减后的磁滞结束参数。需满足 HSTRT+HEND≤16。电流设置 30 (幅度减小到 240 )以下，总和不限。
+#driver_HSTRT: 5 #磁滞开始设置。此值是磁滞结束参数 HEND 的偏移量。
+#driver_FD3: 0 
+#driver_TPFD: 4 #在桥臂极性改变后增加被动快衰减时间。电机出现中速振荡时，从 0 开始增加该参数。
+#driver_CHM: 0 #斩波方式 0 标准模式(spreadCycle)  1 具有快衰减时间的恒定关闭时间。当达到相反向标称电流时，快速衰减时间也终止。快衰减阶段是在导通阶段之后。.
+#driver_VHIGHFS: 0 #高速全步选择 当速度超过 VHIGH 时，使能全步。切换仅发生在45°位置。全步目标电流使用 45°位置的微步表中的电流值  0 不切换到全步1高速切换到全步
+#driver_VHIGHCHM: 0 #当速度超过 VHIGH 时，此位使能切换到 chm= 1 和fd = 0。这样，可以获得更高的速度。可以与 vhighfs = 1 相结合。如果设置，则 TOFF 设置在高速操作期间自动加倍，以避免斩波频率加倍。 0 斩波模式不变化1 高速运行经典的固定关断斩波模式
+#driver_DISS2G: 0 #对接地短路保护 0 :对 GND 短路保护使能 1 :禁用对 GND 短路保护
+#driver_DISS2VS: 0 #对电源短路保护 0 :对 VS 短路保护使能 1 :禁用对 VS 短路保护
+#driver_PWM_AUTOSCALE: True
+#driver_PWM_AUTOGRAD: True
+#driver_PWM_FREQ: 0 #PWM 频率选择。一般最低的设置结果最佳。在每个斩波器输出处测量的频率是有效斩波器频率fPWM 的一半 
+#driver_FREEWHEEL: 0 #当电机电流设置为零( I _ HOLD = 0 )时，静止选项。仅在使能 StealthChop 时有效。飞轮选项电机易于移动，两个线圈短路选项对应被动制动。
+#driver_PWM_GRAD: 0 #速度前向调节模式下用户定义的 PWM 幅度(梯度)，也 是 参 数 自 调 节 阶 段 PWM_GRAD_AUTO 的 初 始值。
+#driver_PWM_OFS: 30 #速度前向调节模式下用户定义的 PWM 幅度(偏移量)，也是参数自调整阶段 PWM_OFFS_AUTO 初始值。
+#driver_PWM_REG: 4 #用 户 定 义 的 PWM 幅 度 调 节 比 例 系 数 ， 当pwm_autoscale=1 时，比例系数越高代表调节速度越快
+#driver_PWM_LIM: 12 #用于限制从 spreadCycle 切换到 StealthChop 时引起的过冲。减小该值产生较低的电流冲击
+#driver_SGT: 0 #该有符号参数控制 StallGuard2 的阈值用于堵转检测，并设置用于读出的最佳测量范围。值越低，灵敏度越高。零是大多数电机的启动值。值越高，StallGuard2 的灵敏度越低，指示到电机 Stall 堵转所需的扭矩越大。
+#driver_SEMIN: 0 #阈值下限。4 位无符号整数。如果 SG 低于此阈值，CoolStep 会增加两个线圈的电流。4 位 SEMIN 乘以32，对应 10 位 SG 值范围的下半部分。(此参数的名称 来 自 smarterEnergy ， 它 是 CoolStep 的 早 期 名称。 )
+#driver_SEUP: 0 #设置电流增加步长。测量到的 stallguard 2 值低于下阈值，电流增加
+#driver_SEMAX: 0 #阈值上限，4 位无符号整数。如果 SG 采样值等于或高于该阈值，CoolStep 将降低到两个线圈的电流。上限为( SEMIN + SEMAX + 1 ) * 32
+#driver_SEDN: 0 #每次线圈电流减少时，StallGuard2 值必须等于或高于上限阈值对应的数值
+#driver_SEIMIN: 0 #通过调整 IRUN 电流设置，设置 CoolStep 操作的电机电流下限。 0: IRUN 的1/2 1: IRUN 的1/4
+#driver_SFILT: 0 #StallGuard2 滤波器以获得更高的测量精度。如果设置，将测量频率降低到每电机电气周期一次测量( 4 个全步)。  0 标准模式1 滤波模式
+#   在 TMC5160 芯片的配置过程中设置给定的寄存器。 
+#   这可用于设置自定义电机参数。 每个参数的默认值
+#   位于上述列表中的参数名称旁边。
+#diag0_pin:
+#diag1_pin:
+#  连接到 TMC5160 芯片的 DIAG 线之一的微控制器引脚。 
+#  只应指定一个诊断引脚。 该引脚为“低电平有效”，因
+#  此通常以“^!”开头。 设置此项会创建一个“tmc5160
+#  _stepper_x:virtual_endstop”虚拟引脚，可用作步进器
+#  的 endstop_pin。 这样做可以实现“无传感器归位”。 
+#（请务必将 driver_SGT 设置为适当的灵敏度值。）默认设
+#  置为不启用无传感器归位。
